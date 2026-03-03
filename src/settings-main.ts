@@ -894,7 +894,7 @@ async function initSettingsWindow(): Promise<void> {
         }
 
         if (hasWmKeyChange && wmKeyValue) {
-          await setSecretValue('WORLDMONITOR_API_KEY', wmKeyValue);
+          await setSecretValue('GLOBALMONITOR_API_KEY', wmKeyValue);
         }
 
         if (hasPending) {
@@ -930,7 +930,7 @@ async function initSettingsWindow(): Promise<void> {
   });
 }
 
-localStorage.setItem('wm-settings-open', '1');
-window.addEventListener('beforeunload', () => localStorage.removeItem('wm-settings-open'));
+localStorage.setItem('gm-settings-open', '1');
+window.addEventListener('beforeunload', () => localStorage.removeItem('gm-settings-open'));
 
 void initSettingsWindow();
