@@ -6,25 +6,25 @@
    ============================================================ */
 :root {
   /* Backgrounds */
-  --bg: #0a0a0a;
-  --bg-secondary: #111;
-  --surface: #141414;
-  --surface-hover: #1e1e1e;
-  --surface-active: #1a1a2e;
+  --bg: #080a0a;
+  --bg-secondary: #0d0f0f;
+  --surface: #121515;
+  --surface-hover: #1b2020;
+  --surface-active: #151a1a;
 
   /* Borders */
-  --border: #2a2a2a;
-  --border-strong: #444;
-  --border-subtle: #1a1a1a;
+  --border: #242a2a;
+  --border-strong: #3d4545;
+  --border-subtle: #171c1c;
 
   /* Text */
-  --text: #e8e8e8;
-  --text-secondary: #ccc;
-  --text-dim: #888;
-  --text-muted: #666;
-  --text-faint: #555;
-  --text-ghost: #444;
-  --accent: #fff;
+  --text: #e0e8e8;
+  --text-secondary: #b8c8c8;
+  --text-dim: #788888;
+  --text-muted: #586868;
+  --text-faint: #485858;
+  --text-ghost: #384848;
+  --accent: #00f2ff;
 
   /* Overlays & shadows */
   --overlay-subtle: rgba(255, 255, 255, 0.03);
