@@ -186,7 +186,7 @@ function renderOverview(area: HTMLElement): void {
   const dashOffset = circumference - (pct / 100) * circumference;
   const ringColor = ready === total ? 'var(--settings-green)' : ready > 0 ? 'var(--settings-blue)' : 'var(--settings-yellow)';
 
-  const wmState = getSecretState('WORLDMONITOR_API_KEY');
+  const wmState = getSecretState('GLOBALMONITOR_API_KEY');
   const wmStatusText = wmState.present ? 'Active' : 'Not set';
   const wmStatusClass = wmState.present ? 'ok' : 'warn';
   const alreadyRegistered = false; // Force-show form for email testing
@@ -219,12 +219,12 @@ function renderOverview(area: HTMLElement): void {
 
     <div class="settings-ov-license">
       <section class="wm-section">
-        <h2 class="wm-section-title">${t('modals.settingsWindow.worldMonitor.apiKey.title')}</h2>
-        <p class="wm-section-desc">${t('modals.settingsWindow.worldMonitor.apiKey.description')}</p>
+        <h2 class="wm-section-title">${t('modals.settingsWindow.globalMonitor.apiKey.title')}</h2>
+        <p class="wm-section-desc">${t('modals.settingsWindow.globalMonitor.apiKey.description')}</p>
         <div class="wm-key-row">
           <div class="wm-input-wrap">
             <input type="password" class="wm-input" data-wm-key-input
-              placeholder="${t('modals.settingsWindow.worldMonitor.apiKey.placeholder')}"
+              placeholder="${t('modals.settingsWindow.globalMonitor.apiKey.placeholder')}"
               autocomplete="off" spellcheck="false"
               ${wmState.present ? `value="${MASKED_SENTINEL}"` : ''} />
             <button type="button" class="wm-toggle-vis" data-wm-toggle title="Show/hide">&#x1f441;</button>
@@ -233,19 +233,19 @@ function renderOverview(area: HTMLElement): void {
         </div>
       </section>
 
-      <div class="wm-divider"><span>${t('modals.settingsWindow.worldMonitor.dividerOr')}</span></div>
+      <div class="wm-divider"><span>${t('modals.settingsWindow.globalMonitor.dividerOr')}</span></div>
 
       <section class="wm-section">
-        <h2 class="wm-section-title">${t('modals.settingsWindow.worldMonitor.register.title')}</h2>
-        <p class="wm-section-desc">${t('modals.settingsWindow.worldMonitor.register.description')}</p>
+        <h2 class="wm-section-title">${t('modals.settingsWindow.globalMonitor.register.title')}</h2>
+        <p class="wm-section-desc">${t('modals.settingsWindow.globalMonitor.register.description')}</p>
         ${alreadyRegistered ? `
-        <p class="wm-reg-status ok">${t('modals.settingsWindow.worldMonitor.register.alreadyRegistered')}</p>
+        <p class="wm-reg-status ok">${t('modals.settingsWindow.globalMonitor.register.alreadyRegistered')}</p>
         ` : `
         <div class="wm-register-row">
           <input type="email" class="wm-input wm-email" data-wm-email
-            placeholder="${t('modals.settingsWindow.worldMonitor.register.emailPlaceholder')}" />
+            placeholder="${t('modals.settingsWindow.globalMonitor.register.emailPlaceholder')}" />
           <button type="button" class="wm-submit-btn" data-wm-register>
-            ${t('modals.settingsWindow.worldMonitor.register.submitBtn')}
+            ${t('modals.settingsWindow.globalMonitor.register.submitBtn')}
           </button>
         </div>
         <p class="wm-reg-status" data-wm-reg-status></p>
@@ -278,13 +278,13 @@ function initOverviewListeners(area: HTMLElement): void {
 
     const email = emailInput.value.trim();
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      regStatus.textContent = t('modals.settingsWindow.worldMonitor.register.invalidEmail');
+      regStatus.textContent = t('modals.settingsWindow.globalMonitor.register.invalidEmail');
       regStatus.className = 'wm-reg-status error';
       return;
     }
 
     btn.disabled = true;
-    btn.textContent = t('modals.settingsWindow.worldMonitor.register.submitting');
+    btn.textContent = t('modals.settingsWindow.globalMonitor.register.submitting');
 
     try {
       const base = isDesktopRuntime() ? getRemoteApiBaseUrl() : '';
@@ -295,21 +295,21 @@ function initOverviewListeners(area: HTMLElement): void {
       });
       const data = await res.json() as { status?: string; error?: string };
       if (data.status === 'already_registered' || data.status === 'registered') {
-        localStorage.setItem('wm-waitlist-registered', '1');
+        localStorage.setItem('gm-waitlist-registered', '1');
         regStatus.textContent = data.status === 'already_registered'
-          ? t('modals.settingsWindow.worldMonitor.register.alreadyRegistered')
-          : t('modals.settingsWindow.worldMonitor.register.success');
+          ? t('modals.settingsWindow.globalMonitor.register.alreadyRegistered')
+          : t('modals.settingsWindow.globalMonitor.register.success');
         regStatus.className = 'wm-reg-status ok';
       } else {
-        regStatus.textContent = data.error || t('modals.settingsWindow.worldMonitor.register.error');
+        regStatus.textContent = data.error || t('modals.settingsWindow.globalMonitor.register.error');
         regStatus.className = 'wm-reg-status error';
       }
     } catch {
-      regStatus.textContent = t('modals.settingsWindow.worldMonitor.register.error');
+      regStatus.textContent = t('modals.settingsWindow.globalMonitor.register.error');
       regStatus.className = 'wm-reg-status error';
     } finally {
       btn.disabled = false;
-      btn.textContent = t('modals.settingsWindow.worldMonitor.register.submitBtn');
+      btn.textContent = t('modals.settingsWindow.globalMonitor.register.submitBtn');
     }
   });
 

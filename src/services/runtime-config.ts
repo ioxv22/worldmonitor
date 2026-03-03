@@ -346,7 +346,7 @@ seedSecretsFromEnvironment();
 // When one window saves secrets or toggles features, the `storage` event fires in other same-origin windows.
 if (typeof window !== 'undefined') {
   window.addEventListener('storage', (e) => {
-    if (e.key === 'wm-secrets-updated') {
+    if (e.key === 'gm-secrets-updated') {
       void loadDesktopSecrets();
     } else if (e.key === TOGGLES_STORAGE_KEY && e.newValue) {
       try {

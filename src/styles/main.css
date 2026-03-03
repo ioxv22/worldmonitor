@@ -9533,7 +9533,7 @@ a.prediction-link:hover {
     display: none !important;
   }
 
-  /* Show only X logo on mobile, hide @eliehabib text */
+  /* Show only X logo on mobile, hide @iivoz text */
   .credit-link .credit-text {
     display: none;
   }
