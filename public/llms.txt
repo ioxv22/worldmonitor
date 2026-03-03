@@ -10,15 +10,15 @@ The project is built with TypeScript, Vite, MapLibre GL JS, deck.gl, D3.js, and 
 
 ## Live Instances
 
-- [Global Monitor](https://worldmonitor.app): Geopolitics, military, conflicts, infrastructure
-- [Tech Monitor](https://tech.worldmonitor.app): Startups, AI/ML, cloud, cybersecurity
-- [Finance Monitor](https://finance.worldmonitor.app): Global markets, trading, central banks, Gulf FDI
+- [Global Monitor](https://globalmonitor.app): Geopolitics, military, conflicts, infrastructure
+- [Tech Monitor](https://tech.globalmonitor.app): Startups, AI/ML, cloud, cybersecurity
+- [Finance Monitor](https://finance.globalmonitor.app): Global markets, trading, central banks, Gulf FDI
 
 ## Documentation
 
-- [README](https://github.com/ioxv22/worldmonitor/blob/main/README.md): Full project documentation with architecture details
-- [Full Documentation](https://github.com/ioxv22/worldmonitor/blob/main/docs/DOCUMENTATION.md): Detailed feature documentation, data layers, and panel reference
-- [Extended LLM Documentation](https://worldmonitor.app/llms-full.txt): Comprehensive version of this file with all data layers, components, and data sources
+- [README](https://github.com/ioxv22/globalmonitor/blob/main/README.md): Full project documentation with architecture details
+- [Full Documentation](https://github.com/ioxv22/globalmonitor/blob/main/docs/DOCUMENTATION.md): Detailed feature documentation, data layers, and panel reference
+- [Extended LLM Documentation](https://globalmonitor.app/llms-full.txt): Comprehensive version of this file with all data layers, components, and data sources
 
 ## Key Features
 
@@ -40,10 +40,10 @@ The project is built with TypeScript, Vite, MapLibre GL JS, deck.gl, D3.js, and 
 
 ## Desktop App
 
-- [Windows Installer](https://worldmonitor.app/api/download?platform=windows-exe): Windows .exe installer
-- [macOS Apple Silicon](https://worldmonitor.app/api/download?platform=macos-arm64): macOS ARM64 build
-- [macOS Intel](https://worldmonitor.app/api/download?platform=macos-x64): macOS x64 build
-- [Linux AppImage](https://worldmonitor.app/api/download?platform=linux-appimage): Linux .AppImage
+- [Windows Installer](https://globalmonitor.app/api/download?platform=windows-exe): Windows .exe installer
+- [macOS Apple Silicon](https://globalmonitor.app/api/download?platform=macos-arm64): macOS ARM64 build
+- [macOS Intel](https://globalmonitor.app/api/download?platform=macos-x64): macOS x64 build
+- [Linux AppImage](https://globalmonitor.app/api/download?platform=linux-appimage): Linux .AppImage
 
 ## Tech Stack
 
@@ -57,6 +57,6 @@ The project is built with TypeScript, Vite, MapLibre GL JS, deck.gl, D3.js, and 
 
 ## Optional
 
-- [Source Code](https://github.com/ioxv22/worldmonitor): GitHub repository (AGPL-3.0)
-- [Releases](https://github.com/ioxv22/worldmonitor/releases): All desktop releases for macOS, Windows, and Linux
-- [Issues](https://github.com/ioxv22/worldmonitor/issues): Bug reports and feature requests
+- [Source Code](https://github.com/ioxv22/globalmonitor): GitHub repository (AGPL-3.0)
+- [Releases](https://github.com/ioxv22/globalmonitor/releases): All desktop releases for macOS, Windows, and Linux
+- [Issues](https://github.com/ioxv22/globalmonitor/issues): Bug reports and feature requests

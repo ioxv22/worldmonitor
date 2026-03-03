@@ -1,4 +1,4 @@
-import type { AviationServiceHandler } from '../../../../src/generated/server/worldmonitor/aviation/v1/service_server';
+import type { AviationServiceHandler } from '../../../../src/generated/server/globalmonitor/aviation/v1/service_server';
 
 import { listAirportDelays } from './list-airport-delays';
 

@@ -205,7 +205,7 @@ export class App {
     }
     // One-time migration: reduce default-enabled sources (full variant only)
     if (currentVariant === 'full') {
-      const baseKey = 'worldmonitor-sources-reduction-v3';
+      const baseKey = 'globalmonitor-sources-reduction-v3';
       if (!localStorage.getItem(baseKey)) {
         const defaultDisabled = computeDefaultDisabledSources();
         saveToStorage(STORAGE_KEYS.disabledFeeds, defaultDisabled);
@@ -215,7 +215,7 @@ export class App {
       }
       // Locale boost: additively enable locale-matched sources (runs once per locale)
       const userLang = ((navigator.language ?? 'en').split('-')[0] ?? 'en').toLowerCase();
-      const localeKey = `worldmonitor-locale-boost-${userLang}`;
+      const localeKey = `globalmonitor-locale-boost-${userLang}`;
       if (userLang !== 'en' && !localStorage.getItem(localeKey)) {
         const boosted = getLocaleBoostedSources(userLang);
         if (boosted.size > 0) {

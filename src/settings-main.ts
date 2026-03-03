@@ -218,37 +218,37 @@ function renderOverview(area: HTMLElement): void {
     </div>
 
     <div class="settings-ov-license">
-      <section class="wm-section">
-        <h2 class="wm-section-title">${t('modals.settingsWindow.globalMonitor.apiKey.title')}</h2>
-        <p class="wm-section-desc">${t('modals.settingsWindow.globalMonitor.apiKey.description')}</p>
-        <div class="wm-key-row">
-          <div class="wm-input-wrap">
-            <input type="password" class="wm-input" data-wm-key-input
+      <section class="gm-section">
+        <h2 class="gm-section-title">${t('modals.settingsWindow.globalMonitor.apiKey.title')}</h2>
+        <p class="gm-section-desc">${t('modals.settingsWindow.globalMonitor.apiKey.description')}</p>
+        <div class="gm-key-row">
+          <div class="gm-input-wrap">
+            <input type="password" class="gm-input" data-gm-key-input
               placeholder="${t('modals.settingsWindow.globalMonitor.apiKey.placeholder')}"
               autocomplete="off" spellcheck="false"
               ${wmState.present ? `value="${MASKED_SENTINEL}"` : ''} />
-            <button type="button" class="wm-toggle-vis" data-wm-toggle title="Show/hide">&#x1f441;</button>
+            <button type="button" class="gm-toggle-vis" data-gm-toggle title="Show/hide">&#x1f441;</button>
           </div>
-          <span class="wm-badge ${wmStatusClass}">${wmStatusText}</span>
+          <span class="gm-badge ${wmStatusClass}">${wmStatusText}</span>
         </div>
       </section>
 
-      <div class="wm-divider"><span>${t('modals.settingsWindow.globalMonitor.dividerOr')}</span></div>
+      <div class="gm-divider"><span>${t('modals.settingsWindow.globalMonitor.dividerOr')}</span></div>
 
-      <section class="wm-section">
-        <h2 class="wm-section-title">${t('modals.settingsWindow.globalMonitor.register.title')}</h2>
-        <p class="wm-section-desc">${t('modals.settingsWindow.globalMonitor.register.description')}</p>
+      <section class="gm-section">
+        <h2 class="gm-section-title">${t('modals.settingsWindow.globalMonitor.register.title')}</h2>
+        <p class="gm-section-desc">${t('modals.settingsWindow.globalMonitor.register.description')}</p>
         ${alreadyRegistered ? `
-        <p class="wm-reg-status ok">${t('modals.settingsWindow.globalMonitor.register.alreadyRegistered')}</p>
+        <p class="gm-reg-status ok">${t('modals.settingsWindow.globalMonitor.register.alreadyRegistered')}</p>
         ` : `
-        <div class="wm-register-row">
-          <input type="email" class="wm-input wm-email" data-wm-email
+        <div class="gm-register-row">
+          <input type="email" class="gm-input gm-email" data-gm-email
             placeholder="${t('modals.settingsWindow.globalMonitor.register.emailPlaceholder')}" />
-          <button type="button" class="wm-submit-btn" data-wm-register>
+          <button type="button" class="gm-submit-btn" data-gm-register>
             ${t('modals.settingsWindow.globalMonitor.register.submitBtn')}
           </button>
         </div>
-        <p class="wm-reg-status" data-wm-reg-status></p>
+        <p class="gm-reg-status" data-gm-reg-status></p>
         `}
       </section>
     </div>
@@ -258,28 +258,28 @@ function renderOverview(area: HTMLElement): void {
 }
 
 function initOverviewListeners(area: HTMLElement): void {
-  area.querySelector('[data-wm-toggle]')?.addEventListener('click', () => {
-    const input = area.querySelector<HTMLInputElement>('[data-wm-key-input]');
+  area.querySelector('[data-gm-toggle]')?.addEventListener('click', () => {
+    const input = area.querySelector<HTMLInputElement>('[data-gm-key-input]');
     if (input) input.type = input.type === 'password' ? 'text' : 'password';
   });
 
-  area.querySelector<HTMLInputElement>('[data-wm-key-input]')?.addEventListener('input', (e) => {
+  area.querySelector<HTMLInputElement>('[data-gm-key-input]')?.addEventListener('input', (e) => {
     const input = e.target as HTMLInputElement;
     if (input.value.startsWith(MASKED_SENTINEL)) {
       input.value = input.value.slice(MASKED_SENTINEL.length);
     }
   });
 
-  area.querySelector('[data-wm-register]')?.addEventListener('click', async () => {
-    const emailInput = area.querySelector<HTMLInputElement>('[data-wm-email]');
-    const regStatus = area.querySelector<HTMLElement>('[data-wm-reg-status]');
-    const btn = area.querySelector<HTMLButtonElement>('[data-wm-register]');
+  area.querySelector('[data-gm-register]')?.addEventListener('click', async () => {
+    const emailInput = area.querySelector<HTMLInputElement>('[data-gm-email]');
+    const regStatus = area.querySelector<HTMLElement>('[data-gm-reg-status]');
+    const btn = area.querySelector<HTMLButtonElement>('[data-gm-register]');
     if (!emailInput || !regStatus || !btn) return;
 
     const email = emailInput.value.trim();
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       regStatus.textContent = t('modals.settingsWindow.globalMonitor.register.invalidEmail');
-      regStatus.className = 'wm-reg-status error';
+      regStatus.className = 'gm-reg-status error';
       return;
     }
 
@@ -299,14 +299,14 @@ function initOverviewListeners(area: HTMLElement): void {
         regStatus.textContent = data.status === 'already_registered'
           ? t('modals.settingsWindow.globalMonitor.register.alreadyRegistered')
           : t('modals.settingsWindow.globalMonitor.register.success');
-        regStatus.className = 'wm-reg-status ok';
+        regStatus.className = 'gm-reg-status ok';
       } else {
         regStatus.textContent = data.error || t('modals.settingsWindow.globalMonitor.register.error');
-        regStatus.className = 'wm-reg-status error';
+        regStatus.className = 'gm-reg-status error';
       }
     } catch {
       regStatus.textContent = t('modals.settingsWindow.globalMonitor.register.error');
-      regStatus.className = 'wm-reg-status error';
+      regStatus.className = 'gm-reg-status error';
     } finally {
       btn.disabled = false;
       btn.textContent = t('modals.settingsWindow.globalMonitor.register.submitBtn');

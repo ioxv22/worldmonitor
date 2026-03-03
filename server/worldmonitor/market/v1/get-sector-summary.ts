@@ -7,7 +7,7 @@ import type {
   GetSectorSummaryRequest,
   GetSectorSummaryResponse,
   SectorPerformance,
-} from '../../../../src/generated/server/worldmonitor/market/v1/service_server';
+} from '../../../../src/generated/server/globalmonitor/market/v1/service_server';
 import { fetchFinnhubQuote, fetchYahooQuotesBatch } from './_shared';
 import { cachedFetchJson } from '../../../_shared/redis';
 

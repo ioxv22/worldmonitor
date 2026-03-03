@@ -452,7 +452,7 @@ async function importHandler(modulePath) {
 
 function resolveConfig(options = {}) {
   const port = Number(options.port ?? process.env.LOCAL_API_PORT ?? 46123);
-  const remoteBase = String(options.remoteBase ?? process.env.LOCAL_API_REMOTE_BASE ?? 'https://worldmonitor.app').replace(/\/$/, '');
+  const remoteBase = String(options.remoteBase ?? process.env.LOCAL_API_REMOTE_BASE ?? 'https://globalmonitor.app').replace(/\/$/, '');
   const resourceDir = String(options.resourceDir ?? process.env.LOCAL_API_RESOURCE_DIR ?? process.cwd());
   const apiDir = options.apiDir
     ? String(options.apiDir)
@@ -522,10 +522,10 @@ const SIDECAR_ALLOWED_ORIGINS = [
   /^https?:\/\/localhost(:\d+)?$/,
   /^https?:\/\/127\.0\.0\.1(:\d+)?$/,
   /^https?:\/\/tauri\.localhost(:\d+)?$/,
-  // Only allow exact domain or single-level subdomains (e.g. preview-xyz.worldmonitor.app).
+  // Only allow exact domain or single-level subdomains (e.g. preview-xyz.globalmonitor.app).
   // The previous (.*\.)? pattern was overly broad. Anchored to prevent spoofing
-  // via domains like worldmonitorEVIL.vercel.app.
-  /^https:\/\/([a-z0-9-]+\.)?worldmonitor\.app$/,
+  // via domains like globalmonitorEVIL.vercel.app.
+  /^https:\/\/([a-z0-9-]+\.)?globalmonitor\.app$/,
 ];
 
 function getSidecarCorsOrigin(req) {

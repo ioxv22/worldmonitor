@@ -53,8 +53,8 @@ test.describe('desktop runtime routing guardrails', () => {
           hasTauriGlobals: false,
           userAgent: 'Mozilla/5.0',
           locationProtocol: 'https:',
-          locationHost: 'worldmonitor.app',
-          locationOrigin: 'https://worldmonitor.app',
+          locationHost: 'globalmonitor.app',
+          locationOrigin: 'https://globalmonitor.app',
         }),
       };
     });
@@ -97,14 +97,14 @@ test.describe('desktop runtime routing guardrails', () => {
         if (url.includes('127.0.0.1:46123/api/fred-data')) {
           return responseJson({ error: 'missing local api key' }, 500);
         }
-        if (url.includes('worldmonitor.app/api/fred-data')) {
+        if (url.includes('globalmonitor.app/api/fred-data')) {
           return responseJson({ observations: [{ value: '321.5' }] }, 200);
         }
 
         if (url.includes('127.0.0.1:46123/api/stablecoin-markets')) {
           throw new Error('ECONNREFUSED');
         }
-        if (url.includes('worldmonitor.app/api/stablecoin-markets')) {
+        if (url.includes('globalmonitor.app/api/stablecoin-markets')) {
           return responseJson({ stablecoins: [{ symbol: 'USDT' }] }, 200);
         }
 
@@ -115,8 +115,8 @@ test.describe('desktop runtime routing guardrails', () => {
       globalWindow.__TAURI__ = { core: { invoke: () => Promise.resolve(null) } };
       delete globalWindow.__wmFetchPatched;
 
-      // Set a valid WM API key so cloud fallback is allowed
-      await runtimeConfig.setSecretValue('WORLDMONITOR_API_KEY' as import('/src/services/runtime-config.ts').RuntimeSecretKey, 'wm_test_key_1234567890abcdef');
+      // Set a valid GM API key so cloud fallback is allowed
+      await runtimeConfig.setSecretValue('GLOBALMONITOR_API_KEY' as import('/src/services/runtime-config.ts').RuntimeSecretKey, 'gm_test_key_1234567890abcdef');
 
       try {
         runtime.installRuntimeFetchPatch();
@@ -142,7 +142,7 @@ test.describe('desktop runtime routing guardrails', () => {
         } else {
           globalWindow.__TAURI__ = previousTauri;
         }
-        await runtimeConfig.setSecretValue('WORLDMONITOR_API_KEY' as import('/src/services/runtime-config.ts').RuntimeSecretKey, '');
+        await runtimeConfig.setSecretValue('GLOBALMONITOR_API_KEY' as import('/src/services/runtime-config.ts').RuntimeSecretKey, '');
       }
     });
 
@@ -152,9 +152,9 @@ test.describe('desktop runtime routing guardrails', () => {
     expect(result.stableSymbol).toBe('USDT');
 
     expect(result.calls.some((url) => url.includes('127.0.0.1:46123/api/fred-data'))).toBe(true);
-    expect(result.calls.some((url) => url.includes('worldmonitor.app/api/fred-data'))).toBe(true);
+    expect(result.calls.some((url) => url.includes('globalmonitor.app/api/fred-data'))).toBe(true);
     expect(result.calls.some((url) => url.includes('127.0.0.1:46123/api/stablecoin-markets'))).toBe(true);
-    expect(result.calls.some((url) => url.includes('worldmonitor.app/api/stablecoin-markets'))).toBe(true);
+    expect(result.calls.some((url) => url.includes('globalmonitor.app/api/stablecoin-markets'))).toBe(true);
   });
 
   test('runtime fetch patch never sends local-only endpoints to cloud', async ({ page }) => {
@@ -188,10 +188,10 @@ test.describe('desktop runtime routing guardrails', () => {
           throw new Error('ECONNREFUSED');
         }
 
-        if (url.includes('worldmonitor.app/api/local-env-update')) {
+        if (url.includes('globalmonitor.app/api/local-env-update')) {
           return responseJson({ leaked: true }, 200);
         }
-        if (url.includes('worldmonitor.app/api/local-validate-secret')) {
+        if (url.includes('globalmonitor.app/api/local-validate-secret')) {
           return responseJson({ leaked: true }, 200);
         }
 
@@ -243,8 +243,8 @@ test.describe('desktop runtime routing guardrails', () => {
 
     expect(result.calls.some((url) => url.includes('127.0.0.1:46123/api/local-env-update'))).toBe(true);
     expect(result.calls.some((url) => url.includes('127.0.0.1:46123/api/local-validate-secret'))).toBe(true);
-    expect(result.calls.some((url) => url.includes('worldmonitor.app/api/local-env-update'))).toBe(false);
-    expect(result.calls.some((url) => url.includes('worldmonitor.app/api/local-validate-secret'))).toBe(false);
+    expect(result.calls.some((url) => url.includes('globalmonitor.app/api/local-env-update'))).toBe(false);
+    expect(result.calls.some((url) => url.includes('globalmonitor.app/api/local-validate-secret'))).toBe(false);
   });
 
   test('chunk preload reload guard is one-shot until app boot clears it', async ({ page }) => {
@@ -376,8 +376,8 @@ test.describe('desktop runtime routing guardrails', () => {
       }
     });
 
-    expect(result.macArm).toBe('https://worldmonitor.app/api/download?platform=macos-arm64&variant=full');
-    expect(result.windowsX64).toBe('https://worldmonitor.app/api/download?platform=windows-exe&variant=full');
+    expect(result.macArm).toBe('https://globalmonitor.app/api/download?platform=macos-arm64&variant=full');
+    expect(result.windowsX64).toBe('https://globalmonitor.app/api/download?platform=windows-exe&variant=full');
     expect(result.linuxFallback).toBe('https://github.com/ioxv22/worldmonitor/releases/latest');
   });
 
@@ -753,7 +753,7 @@ test.describe('desktop runtime routing guardrails', () => {
         if (url.includes('127.0.0.1:46123/api/fred-data')) {
           throw new Error('ECONNREFUSED');
         }
-        if (url.includes('worldmonitor.app/api/fred-data')) {
+        if (url.includes('globalmonitor.app/api/fred-data')) {
           return responseJson({ observations: [{ value: '999' }] }, 200);
         }
         return responseJson({ ok: true }, 200);
@@ -773,7 +773,7 @@ test.describe('desktop runtime routing guardrails', () => {
           fetchError = err instanceof Error ? err.message : String(err);
         }
 
-        const cloudCalls = calls.filter(u => u.includes('worldmonitor.app'));
+        const cloudCalls = calls.filter(u => u.includes('globalmonitor.app'));
 
         return {
           fetchError,
@@ -823,7 +823,7 @@ test.describe('desktop runtime routing guardrails', () => {
 
         calls.push(url);
 
-        if (url.includes('worldmonitor.app') && init?.headers) {
+        if (url.includes('globalmonitor.app') && init?.headers) {
           const h = new Headers(init.headers);
           const wmKey = h.get('X-WorldMonitor-Key');
           if (wmKey) capturedHeaders['X-WorldMonitor-Key'] = wmKey;
@@ -832,7 +832,7 @@ test.describe('desktop runtime routing guardrails', () => {
         if (url.includes('127.0.0.1:46123/api/market/v1/test')) {
           throw new Error('ECONNREFUSED');
         }
-        if (url.includes('worldmonitor.app/api/market/v1/test')) {
+        if (url.includes('globalmonitor.app/api/market/v1/test')) {
           return responseJson({ quotes: [] }, 200);
         }
         return responseJson({ ok: true }, 200);
@@ -854,7 +854,7 @@ test.describe('desktop runtime routing guardrails', () => {
         return {
           status: response.status,
           hasQuotes: Array.isArray(body.quotes),
-          cloudCalls: calls.filter(u => u.includes('worldmonitor.app')).length,
+          cloudCalls: calls.filter(u => u.includes('globalmonitor.app')).length,
           wmKeyHeader: capturedHeaders['X-WorldMonitor-Key'] || null,
         };
       } finally {
@@ -865,7 +865,7 @@ test.describe('desktop runtime routing guardrails', () => {
         } else {
           globalWindow.__TAURI__ = previousTauri;
         }
-        await runtimeConfig.setSecretValue('WORLDMONITOR_API_KEY' as import('/src/services/runtime-config.ts').RuntimeSecretKey, '');
+        await runtimeConfig.setSecretValue('GLOBALMONITOR_API_KEY' as import('/src/services/runtime-config.ts').RuntimeSecretKey, '');
       }
     });
 

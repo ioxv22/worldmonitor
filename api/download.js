@@ -1,8 +1,8 @@
 // Non-sebuf: returns XML/HTML, stays as standalone Vercel function
 export const config = { runtime: 'edge' };
 
-const RELEASES_URL = 'https://api.github.com/repos/ioxv22/worldmonitor/releases/latest';
-const RELEASES_PAGE = 'https://github.com/ioxv22/worldmonitor/releases/latest';
+const RELEASES_URL = 'https://api.github.com/repos/ioxv22/globalmonitor/releases/latest';
+const RELEASES_PAGE = 'https://github.com/ioxv22/globalmonitor/releases/latest';
 
 const PLATFORM_PATTERNS = {
   'windows-exe': (name) => name.endsWith('_x64-setup.exe'),
@@ -14,8 +14,8 @@ const PLATFORM_PATTERNS = {
 };
 
 const VARIANT_IDENTIFIERS = {
-  full: ['globalmonitor', 'worldmonitor'],
-  world: ['globalmonitor', 'worldmonitor'],
+  full: ['globalmonitor'],
+  world: ['globalmonitor'],
   tech: ['techmonitor'],
   finance: ['financemonitor'],
 };

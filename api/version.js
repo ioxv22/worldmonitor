@@ -1,7 +1,7 @@
 // Non-sebuf: returns XML/HTML, stays as standalone Vercel function
 export const config = { runtime: 'edge' };
 
-const RELEASES_URL = 'https://api.github.com/repos/ioxv22/worldmonitor/releases/latest';
+const RELEASES_URL = 'https://api.github.com/repos/ioxv22/globalmonitor/releases/latest';
 
 export default async function handler() {
   try {

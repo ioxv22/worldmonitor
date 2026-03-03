@@ -2,7 +2,7 @@ import type {
   ServerContext,
   ListCyberThreatsRequest,
   ListCyberThreatsResponse,
-} from '../../../../src/generated/server/worldmonitor/cyber/v1/service_server';
+} from '../../../../src/generated/server/globalmonitor/cyber/v1/service_server';
 
 import { cachedFetchJson } from '../../../_shared/redis';
 

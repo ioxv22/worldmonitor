@@ -11,9 +11,9 @@
 1. [Overview](#1-overview)
 2. [Panel Configuration](#2-panel-configuration)
 3. [Panel Base Class](#3-panel-base-class)
-4. [Full Variant Panels](#4-full-variant-panels-worldmonitorio)
-5. [Tech Variant Panels](#5-tech-variant-panels-techworldmonitorio)
-6. [Finance Variant Panels](#6-finance-variant-panels-financeworldmonitorio)
+4. [Full Variant Panels](#4-full-variant-panels-globalmonitorio)
+5. [Tech Variant Panels](#5-tech-variant-panels-techglobalmonitorio)
+6. [Finance Variant Panels](#6-finance-variant-panels-financeglobalmonitorio)
 7. [Variant Comparison Matrix](#7-variant-comparison-matrix)
 8. [Map Layers](#8-map-layers)
 9. [Panel Persistence](#9-panel-persistence)
@@ -35,9 +35,9 @@ World Monitor uses a **config-driven panel system** where every dashboard tile �
 
 | Variant | Domain | Focus | Panel Count |
 |---------|--------|-------|-------------|
-| `full` | worldmonitor.io | Geopolitical intelligence, OSINT, defense | 37 |
-| `tech` | tech.worldmonitor.io | Technology, AI/ML, startups, VC | 34 |
-| `finance` | finance.worldmonitor.io | Markets, trading, macro, commodities | 29 |
+| `full` | globalmonitor.io | Geopolitical intelligence, OSINT, defense | 37 |
+| `tech` | tech.globalmonitor.io | Technology, AI/ML, startups, VC | 34 |
+| `finance` | finance.globalmonitor.io | Markets, trading, macro, commodities | 29 |
 
 ### Key Files
 
@@ -121,10 +121,10 @@ All persistence keys are centralized in `STORAGE_KEYS`:
 ```typescript
 // src/config/variants/base.ts (also re-exported from src/config/panels.ts)
 export const STORAGE_KEYS = {
-  panels:        'worldmonitor-panels',          // Panel visibility toggles
-  monitors:      'worldmonitor-monitors',         // Monitor keyword configs
-  mapLayers:     'worldmonitor-layers',           // Map layer toggles
-  disabledFeeds: 'worldmonitor-disabled-feeds',   // Per-source feed disabling
+  panels:        'globalmonitor-panels',          // Panel visibility toggles
+  monitors:      'globalmonitor-monitors',         // Monitor keyword configs
+  mapLayers:     'globalmonitor-layers',           // Map layer toggles
+  disabledFeeds: 'globalmonitor-disabled-feeds',   // Per-source feed disabling
 } as const;
 ```
 
@@ -132,10 +132,10 @@ Additional keys used outside `STORAGE_KEYS`:
 
 | Key | Purpose | Managed By |
 |-----|---------|------------|
-| `worldmonitor-panel-spans` | Panel height/span sizes (1–4) | `Panel.ts` |
+| `globalmonitor-panel-spans` | Panel height/span sizes (1–4) | `Panel.ts` |
 | `panel-order` | Drag-and-drop panel ordering | `App.ts` |
-| `worldmonitor-variant` | Last-active variant (triggers reset on change) | `App.ts` |
-| `worldmonitor-panel-order-v1.9` | Migration flag for v1.9 panel layout | `App.ts` |
+| `globalmonitor-variant` | Last-active variant (triggers reset on change) | `App.ts` |
+| `globalmonitor-panel-order-v1.9` | Migration flag for v1.9 panel layout | `App.ts` |
 
 ### 2.5 Monitor Colors
 
@@ -212,7 +212,7 @@ Panel height is quantized into 4 span levels:
 | 3 | 350px | `span-3` | Large — 150px drag triggers |
 | 4 | 500px | `span-4` | Extra-large — 300px drag triggers |
 
-Span values are persisted per-panel in the `worldmonitor-panel-spans` localStorage key as a JSON object `{ [panelId]: spanNumber }`.
+Span values are persisted per-panel in the `globalmonitor-panel-spans` localStorage key as a JSON object `{ [panelId]: spanNumber }`.
 
 ### 3.5 Public Methods
 
@@ -239,7 +239,7 @@ Span values are persisted per-panel in the `worldmonitor-panel-spans` localStora
 
 ---
 
-## 4. Full Variant Panels (worldmonitor.io)
+## 4. Full Variant Panels (globalmonitor.io)
 
 The full (geopolitical) variant ships **37 panels** focused on OSINT, defense intelligence, geopolitical risk, and global situational awareness.
 
@@ -287,7 +287,7 @@ The full (geopolitical) variant ships **37 panels** focused on OSINT, defense in
 
 ---
 
-## 5. Tech Variant Panels (tech.worldmonitor.io)
+## 5. Tech Variant Panels (tech.globalmonitor.io)
 
 The tech variant ships **34 panels** focused on technology news, AI/ML, startup ecosystems, and developer tooling.
 
@@ -332,7 +332,7 @@ The tech variant ships **34 panels** focused on technology news, AI/ML, startup 
 
 ---
 
-## 6. Finance Variant Panels (finance.worldmonitor.io)
+## 6. Finance Variant Panels (finance.globalmonitor.io)
 
 The finance variant ships **29 panels** focused on markets, trading, macro indicators, and financial data.
 
@@ -583,22 +583,22 @@ All user preferences survive page reload via `localStorage`. The following table
 
 | Setting | localStorage Key | Format | Default Source | Survives Reload |
 |---------|-----------------|--------|----------------|:--------------:|
-| Panel visibility | `worldmonitor-panels` | `Record<string, PanelConfig>` JSON | `DEFAULT_PANELS` | ✅ |
+| Panel visibility | `globalmonitor-panels` | `Record<string, PanelConfig>` JSON | `DEFAULT_PANELS` | ✅ |
 | Panel ordering | `panel-order` | `string[]` JSON | Config declaration order | ✅ |
-| Panel sizes/spans | `worldmonitor-panel-spans` | `Record<string, number>` JSON | All span-1 | ✅ |
-| Map layer toggles | `worldmonitor-layers` | `MapLayers` JSON | `DEFAULT_MAP_LAYERS` | ✅ |
-| Monitor keywords | `worldmonitor-monitors` | `Monitor[]` JSON | `[]` | ✅ |
-| Disabled sources | `worldmonitor-disabled-feeds` | `string[]` JSON | `[]` | ✅ |
-| Active variant | `worldmonitor-variant` | Plain string | `SITE_VARIANT` | ✅ |
+| Panel sizes/spans | `globalmonitor-panel-spans` | `Record<string, number>` JSON | All span-1 | ✅ |
+| Map layer toggles | `globalmonitor-layers` | `MapLayers` JSON | `DEFAULT_MAP_LAYERS` | ✅ |
+| Monitor keywords | `globalmonitor-monitors` | `Monitor[]` JSON | `[]` | ✅ |
+| Disabled sources | `globalmonitor-disabled-feeds` | `string[]` JSON | `[]` | ✅ |
+| Active variant | `globalmonitor-variant` | Plain string | `SITE_VARIANT` | ✅ |
 | Banner dismissal | `banner-dismissed` (sessionStorage) | Timestamp string | — | Session only |
 
 ### 9.2 Variant Change Reset
 
-When the stored variant (`worldmonitor-variant`) differs from the current `SITE_VARIANT`, the App constructor performs a full reset:
+When the stored variant (`globalmonitor-variant`) differs from the current `SITE_VARIANT`, the App constructor performs a full reset:
 
 ```typescript
 if (storedVariant !== currentVariant) {
-  localStorage.setItem('worldmonitor-variant', currentVariant);
+  localStorage.setItem('globalmonitor-variant', currentVariant);
   localStorage.removeItem(STORAGE_KEYS.mapLayers);
   localStorage.removeItem(STORAGE_KEYS.panels);
   localStorage.removeItem(this.PANEL_ORDER_KEY);
@@ -608,7 +608,7 @@ if (storedVariant !== currentVariant) {
 }
 ```
 
-This ensures users switching between variant domains (e.g. from worldmonitor.io to tech.worldmonitor.io) get a clean default experience for the new variant.
+This ensures users switching between variant domains (e.g. from globalmonitor.io to tech.globalmonitor.io) get a clean default experience for the new variant.
 
 ### 9.3 Full Reset
 
@@ -877,7 +877,7 @@ sequenceDiagram
     User->>SettingsModal: Click panel toggle
     SettingsModal->>App: panelKey identified
     App->>App: config.enabled = !config.enabled
-    App->>localStorage: saveToStorage('worldmonitor-panels', panelSettings)
+    App->>localStorage: saveToStorage('globalmonitor-panels', panelSettings)
     App->>SettingsModal: renderPanelToggles() — update checkmarks
     App->>App: applyPanelSettings()
     loop For each panel
@@ -886,7 +886,7 @@ sequenceDiagram
     end
     Note over localStorage: Survives page reload
     User->>User: Refreshes page
-    App->>localStorage: loadFromStorage('worldmonitor-panels')
+    App->>localStorage: loadFromStorage('globalmonitor-panels')
     App->>App: applyPanelSettings() with restored state
 ```
 

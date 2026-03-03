@@ -8,7 +8,7 @@ import type {
   ListPositiveGeoEventsRequest,
   ListPositiveGeoEventsResponse,
   PositiveGeoEvent,
-} from '../../../../src/generated/server/worldmonitor/positive_events/v1/service_server';
+} from '../../../../src/generated/server/globalmonitor/positive_events/v1/service_server';
 
 import { classifyNewsItem } from '../../../../src/services/positive-classifier';
 import { cachedFetchJson } from '../../../_shared/redis';

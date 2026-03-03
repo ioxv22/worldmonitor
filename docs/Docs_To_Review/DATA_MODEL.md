@@ -1606,7 +1606,7 @@ Panels persist their size and ordering in `localStorage`:
 
 | Key | Constant | Value Schema |
 |-----|----------|--------------|
-| `worldmonitor-panel-spans` | `PANEL_SPANS_KEY` | `Record<string, number>` — panel ID → grid span (1–4) |
+| `globalmonitor-panel-spans` | `PANEL_SPANS_KEY` | `Record<string, number>` — panel ID → grid span (1–4) |
 | `panel-order` | `PANEL_ORDER_KEY` | `string[]` — ordered panel IDs |
 
 ### Span/Resize Logic
@@ -1668,10 +1668,10 @@ const REFRESH_INTERVALS = {
 };
 
 const STORAGE_KEYS = {
-  panels:        'worldmonitor-panels',
-  monitors:      'worldmonitor-monitors',
-  mapLayers:     'worldmonitor-layers',
-  disabledFeeds: 'worldmonitor-disabled-feeds',
+  panels:        'globalmonitor-panels',
+  monitors:      'globalmonitor-monitors',
+  mapLayers:     'globalmonitor-layers',
+  disabledFeeds: 'globalmonitor-disabled-feeds',
 } as const;
 ```
 
@@ -1793,7 +1793,7 @@ Combines a static baseline with four dynamic components to produce a real-time e
 
 **Source:** [`src/services/storage.ts`](../src/services/storage.ts) (230 lines)
 
-Database: `worldmonitor_db`, version 1.
+Database: `globalmonitor_db`, version 1.
 
 #### Store: `baselines`
 
@@ -1859,7 +1859,7 @@ type CacheEnvelope<T> = {
 };
 ```
 
-- Key prefix: `worldmonitor-persistent-cache:`
+- Key prefix: `globalmonitor-persistent-cache:`
 - Desktop runtime: Tauri `read_cache_entry` / `write_cache_entry` commands
 - Web runtime: `localStorage` fallback
 - Helper: `describeFreshness(updatedAt)` → `"just now" | "5m ago" | "2h ago" | "1d ago"`

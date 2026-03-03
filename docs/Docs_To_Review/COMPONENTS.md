@@ -159,7 +159,7 @@ div.panel#${id}                       ← root
 ### Persistence
 
 Panel **span sizes** (user-resized heights) are stored in
-`localStorage['worldmonitor-panel-spans']` as a JSON map of `{ [id]: height }`.
+`localStorage['globalmonitor-panel-spans']` as a JSON map of `{ [id]: height }`.
 
 ### Services
 
@@ -548,7 +548,7 @@ conflict > hotspot > country > infrastructure > tech
 
 #### Persistence
 
-Recent selections stored in `localStorage['worldmonitor_recent_searches']`
+Recent selections stored in `localStorage['globalmonitor_recent_searches']`
 (most recent 10).
 
 #### DOM Structure

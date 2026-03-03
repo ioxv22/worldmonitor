@@ -2,7 +2,7 @@
 
 AI-powered real-time global intelligence dashboard aggregating news, markets, geopolitical data, and infrastructure monitoring into a unified situation awareness interface.
 
-🌐 **[Live Demo: worldmonitor.app](https://worldmonitor.app)** | 💻 **[Tech Variant: tech.worldmonitor.app](https://tech.worldmonitor.app)**
+🌐 **[Live Demo: globalmonitor.app](https://globalmonitor.app)** | 💻 **[Tech Variant: tech.globalmonitor.app](https://tech.globalmonitor.app)**
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white)
@@ -17,8 +17,8 @@ World Monitor runs two specialized variants from a single codebase, each optimiz
 
 | Variant | URL | Focus |
 |---------|-----|-------|
-| **🌍 World Monitor** | [worldmonitor.app](https://worldmonitor.app) | Geopolitical intelligence, military tracking, conflict monitoring, infrastructure security |
-| **💻 Tech Monitor** | [tech.worldmonitor.app](https://tech.worldmonitor.app) | Technology sector intelligence, AI/startup ecosystems, cloud infrastructure, tech events |
+| **🌍 World Monitor** | [globalmonitor.app](https://globalmonitor.app) | Geopolitical intelligence, military tracking, conflict monitoring, infrastructure security |
+| **💻 Tech Monitor** | [tech.globalmonitor.app](https://tech.globalmonitor.app) | Technology sector intelligence, AI/startup ecosystems, cloud infrastructure, tech events |
 
 A compact **variant switcher** in the header allows seamless navigation between variants while preserving your map position and panel configuration.
 
@@ -56,7 +56,7 @@ The primary variant focuses on geopolitical intelligence, military tracking, and
 
 ## Tech Monitor
 
-The tech variant ([tech.worldmonitor.app](https://tech.worldmonitor.app)) provides specialized layers for technology sector monitoring.
+The tech variant ([tech.globalmonitor.app](https://tech.globalmonitor.app)) provides specialized layers for technology sector monitoring.
 
 ### Tech Ecosystem Layers
 
@@ -3303,8 +3303,8 @@ const header = `World Monitor v${__APP_VERSION__}`;
 
 ```bash
 # Clone the repository
-git clone https://github.com/ioxv22/worldmonitor.git
-cd worldmonitor
+git clone https://github.com/ioxv22/globalmonitor.git
+cd globalmonitor
 
 # Install everything (buf, sebuf plugins, npm deps, proto deps)
 make install
@@ -3872,8 +3872,8 @@ Contributions are welcome! Whether you're fixing bugs, adding features, improvin
 1. **Fork the repository** on GitHub
 2. **Clone your fork** locally:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/worldmonitor.git
-   cd worldmonitor
+   git clone https://github.com/YOUR_USERNAME/globalmonitor.git
+   cd globalmonitor
    ```
 3. **Install dependencies**:
    ```bash
@@ -4019,7 +4019,7 @@ See **[docs/ADDING_ENDPOINTS.md](ADDING_ENDPOINTS.md)** for the complete guide c
 **Adding a New Data Layer**
 
 1. Define the proto contract and generate code (see [ADDING_ENDPOINTS.md](ADDING_ENDPOINTS.md))
-2. Implement the handler in `server/worldmonitor/{domain}/v1/`
+2. Implement the handler in `server/globalmonitor/{domain}/v1/`
 3. Create the frontend service wrapper in `src/services/`
 4. Add layer toggle in `src/components/Map.ts`
 5. Add rendering logic for map markers/overlays

@@ -12,7 +12,7 @@ import type {
   ListFireDetectionsRequest,
   ListFireDetectionsResponse,
   FireConfidence,
-} from '../../../../src/generated/server/worldmonitor/wildfire/v1/service_server';
+} from '../../../../src/generated/server/globalmonitor/wildfire/v1/service_server';
 
 import { CHROME_UA } from '../../../_shared/constants';
 import { cachedFetchJson } from '../../../_shared/redis';

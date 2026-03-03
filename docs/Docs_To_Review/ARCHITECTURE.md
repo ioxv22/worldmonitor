@@ -94,7 +94,7 @@ graph TD
 | **External APIs** | 30+ heterogeneous sources | RSS feeds, conflict databases (ACLED, UCDP), geospatial (GDELT, NASA FIRMS, OpenSky), markets (Finnhub, Yahoo Finance, CoinGecko), LLMs (Groq, OpenRouter), and more. |
 | **Upstash Redis** | Redis REST API | Server-side response cache with TTL-based expiry. Falls back to in-memory Map in sidecar mode. |
 | **Service Worker** | Workbox | Offline support, runtime caching strategies, background sync. |
-| **IndexedDB** | `worldmonitor_db` | Client-side storage for playback snapshots and temporal baseline data. |
+| **IndexedDB** | `globalmonitor_db` | Client-side storage for playback snapshots and temporal baseline data. |
 | **Tauri Shell** | Tauri 2 (Rust) + Node.js sidecar | Desktop packaging. Sidecar runs a local API server; Rust layer provides OS keychain, window management, and IPC. |
 | **ML Worker** | Web Worker + ONNX Runtime / Transformers.js | In-browser inference for embeddings, sentiment, summarisation, and NER. |
 
@@ -106,16 +106,16 @@ World Monitor ships as three product variants from a single codebase. Each varia
 
 | Variant | Domain | Focus |
 |---|---|---|
-| `full` | worldmonitor.app | Geopolitics, military, OSINT, conflicts, markets |
-| `tech` | tech.worldmonitor.app | AI/ML, startups, cybersecurity, developer tools |
-| `finance` | finance.worldmonitor.app | Markets, trading, central banks, macro indicators |
+| `full` | globalmonitor.app | Geopolitics, military, OSINT, conflicts, markets |
+| `tech` | tech.globalmonitor.app | AI/ML, startups, cybersecurity, developer tools |
+| `finance` | finance.globalmonitor.app | Markets, trading, central banks, macro indicators |
 
 ### Variant Resolution
 
 The active variant is resolved at startup in src/config/variant.ts via a strict priority chain:
 
 ```
-localStorage('worldmonitor-variant')  →  import.meta.env.VITE_VARIANT  →  default 'full'
+localStorage('globalmonitor-variant')  →  import.meta.env.VITE_VARIANT  →  default 'full'
 ```
 
 The exported constant `SITE_VARIANT` is computed once as an IIFE:
@@ -123,7 +123,7 @@ The exported constant `SITE_VARIANT` is computed once as an IIFE:
 ```typescript
 export const SITE_VARIANT: string = (() => {
   if (typeof window !== 'undefined') {
-    const stored = localStorage.getItem('worldmonitor-variant');
+    const stored = localStorage.getItem('globalmonitor-variant');
     if (stored === 'tech' || stored === 'full' || stored === 'finance') return stored;
   }
   return import.meta.env.VITE_VARIANT || 'full';
@@ -416,7 +416,7 @@ graph TD
 
     subgraph LayerConfig["Layer Configuration"]
         Defaults["FULL_MAP_LAYERS<br/>(35+ boolean toggles)"]
-        UserPref["localStorage overrides<br/>(worldmonitor-layers)"]
+        UserPref["localStorage overrides<br/>(globalmonitor-layers)"]
         URLState["URL state overrides"]
         Variant["Variant-specific defaults"]
     end
@@ -460,7 +460,7 @@ Map layers follow a three-tier override system:
 
 1. **Variant defaults** — `FULL_MAP_LAYERS`, `TECH_MAP_LAYERS`, or `FINANCE_MAP_LAYERS` define the base layer state for each variant. The full variant enables `conflicts`, `bases`, `hotspots`, `nuclear`, `sanctions`, `weather`, `economic`, `waterways`, `outages`, and `military` by default.
 
-2. **User localStorage** — Stored under the key `worldmonitor-layers`. Users toggle layers in the map controls UI, and their preferences persist across sessions.
+2. **User localStorage** — Stored under the key `globalmonitor-layers`. Users toggle layers in the map controls UI, and their preferences persist across sessions.
 
 3. **URL state** — Query parameters can override individual layers for shareable links and embeds.
 
@@ -505,7 +505,7 @@ graph TD
     end
 
     subgraph Tier4["Tier 4: IndexedDB (Client)"]
-        IDB["worldmonitor_db"]
+        IDB["globalmonitor_db"]
         Baselines["baselines store<br/>(keyPath: 'key')"]
         Snapshots["snapshots store<br/>(keyPath: 'timestamp'<br/>index: 'by_time')"]
         IDB --> Baselines
@@ -515,7 +515,7 @@ graph TD
     subgraph Tier5["Tier 5: Persistent Cache"]
         PC["persistent-cache.ts<br/>CacheEnvelope&lt;T&gt;"]
         TauriInvoke["Tauri invoke<br/>(OS filesystem)"]
-        LSFallback["localStorage fallback<br/>prefix: worldmonitor-persistent-cache:"]
+        LSFallback["localStorage fallback<br/>prefix: globalmonitor-persistent-cache:"]
         PC --> TauriInvoke
         PC --> LSFallback
     end
@@ -560,7 +560,7 @@ The offline fallback page (public/offline.html) is served when the network is un
 
 ### Tier 4: IndexedDB
 
-The `worldmonitor_db` IndexedDB database contains two object stores:
+The `globalmonitor_db` IndexedDB database contains two object stores:
 
 | Store | keyPath | Index | Purpose |
 |---|---|---|---|
@@ -579,7 +579,7 @@ type CacheEnvelope<T> = {
 };
 ```
 
-On desktop, `getPersistentCache()` and `setPersistentCache()` attempt Tauri IPC invocations (`read_cache_entry` / `write_cache_entry`) first, which store data on the OS filesystem via the Rust backend. If the Tauri call fails (or in web mode), the module falls back to `localStorage` with the prefix `worldmonitor-persistent-cache:`.
+On desktop, `getPersistentCache()` and `setPersistentCache()` attempt Tauri IPC invocations (`read_cache_entry` / `write_cache_entry`) first, which store data on the OS filesystem via the Rust backend. If the Tauri call fails (or in web mode), the module falls back to `localStorage` with the prefix `globalmonitor-persistent-cache:`.
 
 ---
 
@@ -660,7 +660,7 @@ The src/services/runtime-config.ts module manages two concerns:
 
 On desktop, secrets are read from the OS keychain via Tauri IPC. In web mode, they fall back to environment variables. A `validateSecret()` function provides format validation with user-facing hints.
 
-**2. Feature Toggles** — 14 `RuntimeFeatureId` values stored in localStorage under the key `worldmonitor-runtime-feature-toggles`:
+**2. Feature Toggles** — 14 `RuntimeFeatureId` values stored in localStorage under the key `globalmonitor-runtime-feature-toggles`:
 
 `aiGroq`, `aiOpenRouter`, `economicFred`, `energyEia`, `internetOutages`, `acledConflicts`, `abuseChThreatIntel`, `alienvaultOtxThreatIntel`, `abuseIpdbThreatIntel`, `wingbitsEnrichment`, `aisRelay`, `openskyRelay`, `finnhubMarkets`, `nasaFirms`.
 
